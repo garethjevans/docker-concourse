@@ -1,4 +1,9 @@
+FROM golang:1.17.5 as go
+RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/create-package
+
 FROM alpine:3.10
+
+COPY --from=go /go/bin/create-package /usr/local/bin/create-package
 
 ENV DOCKER_CHANNEL=stable \
     DOCKER_VERSION=19.03.2 \
