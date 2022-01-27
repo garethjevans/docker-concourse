@@ -1,11 +1,13 @@
 FROM golang:1.17.5 as go
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/create-package
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency
+RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency
 
 FROM alpine:3.10
 
 COPY --from=go /go/bin/create-package /usr/local/bin/create-package
 COPY --from=go /go/bin/update-buildpack-dependency /usr/local/bin/update-buildpack-dependency
+COPY --from=go /go/bin/update-package-dependency /usr/local/bin/update-package-dependency
 
 ENV DOCKER_CHANNEL=stable \
     DOCKER_VERSION=19.03.2 \
