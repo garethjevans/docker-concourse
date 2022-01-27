@@ -41,7 +41,7 @@ RUN apk --update --no-cache add \
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache
 
-COPY entrypoint.sh /bin/entrypoint.sh
+COPY docker-functions.sh /bin/docker-functions.sh
 
 RUN curl \
       --location \
@@ -75,5 +75,3 @@ RUN curl \
       rm -fr gh_${GH_VERSION}_linux_amd64
 
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
-
-ENTRYPOINT ["entrypoint.sh"]
