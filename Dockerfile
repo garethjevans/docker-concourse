@@ -17,8 +17,7 @@ ENV DOCKER_CHANNEL=stable \
     DOCKER_SQUASH=0.2.0 \
     PACK_VERSION=0.23.0 \
     YJ_VERSION=5.0.0 \
-    JQ_VERSION=1.6 \
-    GH_VERSION=2.4.0
+    JQ_VERSION=1.6
 
 # Install Docker, Docker Compose, Docker Squash
 RUN apk --update --no-cache add \
@@ -69,15 +68,6 @@ RUN curl \
       --output /usr/local/bin/jq \
       https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 && \
       chmod +x /usr/local/bin/jq
-
-RUN curl \
-      --location \
-      --show-error \
-      --silent \
-      --output gh.tar.gz \
-      https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz && \
-      tar xfz gh.tar.gz && mv gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/gh && \
-      rm -fr gh_${GH_VERSION}_linux_amd64
 
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 # Install go
