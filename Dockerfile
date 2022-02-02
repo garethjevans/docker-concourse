@@ -3,6 +3,7 @@ RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpa
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
+RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
 
 FROM alpine:3.10
 
@@ -10,6 +11,7 @@ COPY --from=go /go/bin/create-package /usr/local/bin/create-package
 COPY --from=go /go/bin/update-buildpack-dependency /usr/local/bin/update-buildpack-dependency
 COPY --from=go /go/bin/update-package-dependency /usr/local/bin/update-package-dependency
 COPY --from=go /go/bin/commitpr /usr/local/bin/commitpr
+COPY --from=go /go/bin/next /usr/local/bin/next
 
 ENV DOCKER_CHANNEL=stable \
     DOCKER_VERSION=19.03.2 \
