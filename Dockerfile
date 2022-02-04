@@ -2,8 +2,8 @@ FROM golang:1.17.5 as go
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/create-package
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency
-RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
-RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
+RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
+RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
 
 FROM alpine:3.10
 
