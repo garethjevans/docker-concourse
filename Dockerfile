@@ -19,7 +19,8 @@ ENV DOCKER_CHANNEL=stable \
     DOCKER_SQUASH=0.2.0 \
     PACK_VERSION=0.23.0 \
     YJ_VERSION=5.0.0 \
-    JQ_VERSION=1.6
+    JQ_VERSION=1.6 \
+    VENOM_VERSION=1.0.1
 
 # Install Docker, Docker Compose, Docker Squash
 RUN apk --update --no-cache add \
@@ -83,3 +84,12 @@ RUN wget -q https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
 ENV GOPATH /go
 # add go and GOPATH/bin to PATH
 ENV PATH $PATH:$GOPATH/bin:/usr/local/go/bin
+
+RUN curl \
+      --location \
+      --show-error \
+      --silent \
+      --output /usr/local/bin/venom \
+      https://github.com/ovh/venom/releases/download/v${VENOM_VERSION}/venom.linux-amd64 && \
+      chmod +x /usr/local/bin/venom
+
