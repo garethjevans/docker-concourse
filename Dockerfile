@@ -74,7 +74,7 @@ RUN curl \
 
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 # Install go
-ENV GO_VERSION 1.17.5
+ENV GO_VERSION 1.17.7
 RUN wget -q https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz && \
   tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
   rm -rf go${GO_VERSION}.linux-amd64.tar.gz && \
