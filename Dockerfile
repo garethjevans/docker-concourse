@@ -93,3 +93,6 @@ RUN curl \
       https://github.com/ovh/venom/releases/download/v${VENOM_VERSION}/venom.linux-amd64 && \
       chmod +x /usr/local/bin/venom
 
+RUN curl \
+      -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 \
+      && mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
