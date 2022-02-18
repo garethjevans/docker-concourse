@@ -15,7 +15,7 @@ COPY --from=go /go/bin/next /usr/local/bin/next
 
 ENV DOCKER_CHANNEL=stable \
     DOCKER_VERSION=19.03.2 \
-    DOCKER_COMPOSE_VERSION=1.24.1 \
+    DOCKER_COMPOSE_VERSION=1.29.2 \
     DOCKER_SQUASH=0.2.0 \
     PACK_VERSION=0.24.0 \
     YJ_VERSION=5.0.0 \
