@@ -2,8 +2,15 @@ FROM golang:1.17.7 as go
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/create-package
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency
-RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
-RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
+
+# Update with CKI builds
+# The below will work with a newer version of git installed on the image according to: https://alysivji.github.io/docker-tips-private-git-repo.html
+# Can then pass in the GITHUB_TOKEN with a  --build-arg flag when doing docker build.
+ARG GITHUB_TOKEN=""
+RUN git --global url."https://x-access-token:${GITHUB_TOKEN}@github.tools.sap".insteadOf "https://github.tools.sap"
+
+RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.tools.sap/cki/commitpr
+RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.tools.sap/cki/next
 
 FROM alpine:3.10
 
