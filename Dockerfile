@@ -28,7 +28,6 @@ RUN apk --update --no-cache add \
         curl \
         device-mapper \
         py-pip \
-        python-dev \
         iptables \
         util-linux \
         ca-certificates \
