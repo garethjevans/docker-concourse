@@ -2,10 +2,10 @@ FROM golang:1.17.8 as go
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/create-package
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency
-RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
-RUN GOPROXY=direct GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
+RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
+RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
 
-FROM alpine:3.11
+FROM alpine:3.15
 
 COPY --from=go /go/bin/create-package /usr/local/bin/create-package
 COPY --from=go /go/bin/update-buildpack-dependency /usr/local/bin/update-buildpack-dependency
@@ -15,7 +15,7 @@ COPY --from=go /go/bin/next /usr/local/bin/next
 
 ENV DOCKER_CHANNEL=stable \
     DOCKER_VERSION=19.03.2 \
-    DOCKER_COMPOSE_VERSION=1.24.1 \
+    DOCKER_COMPOSE_VERSION=1.29.2 \
     DOCKER_SQUASH=0.2.0 \
     PACK_VERSION=0.24.0 \
     YJ_VERSION=5.0.0 \
@@ -27,8 +27,8 @@ RUN apk --update --no-cache add \
         bash \
         curl \
         device-mapper \
-        py-pip \
-        python-dev \
+        py3-pip \
+        python3-dev \
         iptables \
         util-linux \
         ca-certificates \
@@ -39,7 +39,9 @@ RUN apk --update --no-cache add \
         make \
 	git \
         && \
-    apk upgrade && \
+    apk upgrade
+
+RUN pip install --upgrade pip && \
     curl -fL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" | tar zx && \
     mv /docker/* /bin/ && chmod +x /bin/docker* && \
     pip install docker-compose==${DOCKER_COMPOSE_VERSION} && \
