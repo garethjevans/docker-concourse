@@ -5,7 +5,7 @@ RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpa
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
 RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
 
-FROM alpine:3.12
+FROM alpine:3.14
 
 COPY --from=go /go/bin/create-package /usr/local/bin/create-package
 COPY --from=go /go/bin/update-buildpack-dependency /usr/local/bin/update-buildpack-dependency
