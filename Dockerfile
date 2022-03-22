@@ -1,9 +1,9 @@
 FROM golang:1.18.0 as go
-RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/create-package
-RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency
-RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/paketo-buildpacks/libpak/cmd/update-package-dependency
-RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/commitpr
-RUN GO111MODULE=on go get -u -ldflags="-s -w" github.com/garethjevans/next
+RUN GO111MODULE=on go install github.com/paketo-buildpacks/libpak/cmd/create-package@main
+RUN GO111MODULE=on go install github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency@main
+RUN GO111MODULE=on go install github.com/paketo-buildpacks/libpak/cmd/update-package-dependency@main
+RUN GO111MODULE=on go install github.com/garethjevans/commitpr@main
+RUN GO111MODULE=on go install github.com/garethjevans/next@main
 
 FROM alpine:3.15
 
