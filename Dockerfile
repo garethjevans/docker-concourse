@@ -5,7 +5,7 @@ RUN GO111MODULE=on go install github.com/paketo-buildpacks/libpak/cmd/update-pac
 RUN GO111MODULE=on go install github.com/garethjevans/commitpr@main
 RUN GO111MODULE=on go install github.com/garethjevans/next@main
 
-FROM alpine:3.15
+FROM alpine:3.16.0
 
 COPY --from=go /go/bin/create-package /usr/local/bin/create-package
 COPY --from=go /go/bin/update-buildpack-dependency /usr/local/bin/update-buildpack-dependency
