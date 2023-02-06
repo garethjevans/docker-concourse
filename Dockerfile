@@ -1,4 +1,4 @@
-FROM golang:1.18.0 as go
+FROM golang:1.20.0 as go
 RUN GO111MODULE=on go install github.com/paketo-buildpacks/libpak/cmd/create-package@main
 RUN GO111MODULE=on go install github.com/paketo-buildpacks/libpak/cmd/update-buildpack-dependency@main
 RUN GO111MODULE=on go install github.com/paketo-buildpacks/libpak/cmd/update-package-dependency@main
